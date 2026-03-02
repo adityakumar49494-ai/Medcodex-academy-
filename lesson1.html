@@ -1,129 +1,136 @@
-<h2>Lesson 1: Your First Day as a Medical Coder 🏥</h2>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Level 1 - Interactive Coding Training</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .option-btn {
+      display: block;
+      margin: 8px 0;
+      padding: 10px;
+      background: #f0f4ff;
+      border: 1px solid #4a6cf7;
+      cursor: pointer;
+      border-radius: 6px;
+    }
 
-<div class="card">
-  <h3>📍 Scene: Monday Morning, 9:00 AM</h3>
-  <p>
-    You just got hired at CityCare Hospital as a junior medical coder.
-  </p>
-  <p>
-    Your supervisor walks in and says:
-  </p>
-  <blockquote>
-      “We have 27 patient charts waiting. 
-      Insurance claims can’t go out without codes.
-      You’re in charge.”
-  </blockquote>
-  <p>
-    Welcome to the real world of medical coding.
-  </p>
+    .option-btn:hover {
+      background: #dbe4ff;
+    }
+
+    .feedback {
+      margin-top: 10px;
+      font-weight: bold;
+    }
+
+    .level-box {
+      background: #eef2ff;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+    }
+
+    .progress-bar-container {
+      width: 100%;
+      background: #ddd;
+      border-radius: 20px;
+      height: 20px;
+      margin-top: 10px;
+    }
+
+    .progress-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #4a6cf7, #7b8cff);
+      border-radius: 20px;
+      transition: 0.4s;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container" style="margin-top:40px;">
+
+  <h2>🎮 Level 1: Medical Coding Rookie</h2>
+
+  <div class="level-box">
+    <p><strong>XP:</strong> <span id="xp">0</span></p>
+    <p><strong>Level:</strong> <span id="level">Beginner Coder</span></p>
+
+    <div class="progress-bar-container">
+      <div id="progressBar" class="progress-bar"></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Case 1</h3>
+    <p>Doctor documents Type 2 Diabetes. Which coding system first?</p>
+
+    <button class="option-btn" onclick="answer(true)">ICD-10</button>
+    <button class="option-btn" onclick="answer(false)">CPT</button>
+
+    <div id="feedback" class="feedback"></div>
+  </div>
+
+  <br>
+
+  <div class="card">
+    <h3>Case 2</h3>
+    <p>Patient comes for office visit. Which system reports procedure?</p>
+
+    <button class="option-btn" onclick="answer(true)">CPT</button>
+    <button class="option-btn" onclick="answer(false)">ICD-10</button>
+  </div>
+
+  <br>
+
+  <div class="card" style="text-align:center;">
+    <button onclick="completeLesson()" class="btn">
+      🚀 Finish Level
+    </button>
+  </div>
+
 </div>
 
-<br>
+<script>
+let xp = parseInt(localStorage.getItem("xp")) || 0;
 
-<div class="card">
-  <h3>🧠 Your Mission</h3>
-  <p>
-    Doctors write medical notes in plain English.
-  </p>
-  <p>
-    Insurance companies don’t understand paragraphs.
-    They understand codes.
-  </p>
-  <p>
-    Your job is to translate:
-  </p>
-  <p><strong>Medical language → Universal code language</strong></p>
-</div>
+function updateUI() {
+  document.getElementById("xp").innerText = xp;
 
-<br>
+  let levelText = "Beginner Coder";
 
-<div class="card">
-  <h3>📄 First Patient Chart</h3>
+  if (xp >= 100) {
+    levelText = "Certified Coder 🏆";
+  } else if (xp >= 50) {
+    levelText = "Junior Coder 🔵";
+  }
 
-  <p><strong>Doctor’s Note:</strong></p>
+  document.getElementById("level").innerText = levelText;
 
-  <blockquote>
-    “55-year-old male. Type 2 diabetes. Stable. No complications.
-     Follow-up visit. Medication adjusted.”
-  </blockquote>
+  let progress = Math.min((xp / 100) * 100, 100);
+  document.getElementById("progressBar").style.width = progress + "%";
+}
 
-  <p>
-    Pause for a second.
-  </p>
+function answer(correct) {
+  if (correct) {
+    xp += 10;
+    localStorage.setItem("xp", xp);
+    document.getElementById("feedback").innerHTML = "✅ +10 XP!";
+  } else {
+    document.getElementById("feedback").innerHTML = "❌ Try again.";
+  }
 
-  <p>
-    What do you need to code?
-  </p>
+  updateUI();
+}
 
-  <ul>
-    <li>Diagnosis (What condition?)</li>
-    <li>Procedure (What service was done?)</li>
-  </ul>
+function completeLesson() {
+  localStorage.setItem("lesson1", "done");
+  alert("Level Completed! 🎉");
+}
 
-  <p>
-    This is how coders think.
-  </p>
-</div>
+updateUI();
+</script>
 
-<br>
-
-<div class="card">
-  <h3>🧰 Your Coding Toolbox</h3>
-
-  <p><strong>ICD-10</strong> → For diagnoses</p>
-  <p><strong>CPT</strong> → For procedures</p>
-  <p><strong>HCPCS</strong> → For equipment & supplies</p>
-
-  <p>
-    Every case requires choosing the correct tool.
-  </p>
-</div>
-
-<br>
-
-<div class="card">
-  <h3>⚠️ Reality Check</h3>
-
-  <p>
-    If you choose the wrong code:
-  </p>
-
-  <ul>
-    <li>❌ Insurance may deny the claim</li>
-    <li>❌ Hospital loses money</li>
-    <li>❌ Audit risk increases</li>
-  </ul>
-
-  <p>
-    Accuracy matters.
-  </p>
-</div>
-
-<br>
-
-<div class="card">
-  <h3>🎯 Mini Decision Test</h3>
-
-  <p>
-    A patient comes in with essential hypertension.
-  </p>
-
-  <p>
-    Which system do you use first?
-  </p>
-
-  <ul>
-    <li>A) CPT</li>
-    <li>B) ICD-10</li>
-  </ul>
-
-  <p><strong>Correct Answer: B — ICD-10 (Diagnosis)</strong></p>
-</div>
-
-<br>
-
-<div class="card" style="text-align:center;">
-  <button class="btn" onclick="completeLesson('lesson1')">
-    🚀 Complete Day 1 Training
-  </button>
-</div>
+</body>
+</html>
